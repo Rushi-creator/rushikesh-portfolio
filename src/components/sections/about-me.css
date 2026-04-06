@@ -1,0 +1,358 @@
+/* About Me Section - Sticky Scroll Cards Animation */
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@600&family=Montserrat:wght@900&display=swap");
+
+/* Section Variables - Dark theme with blur-transparent */
+.about-me-section {
+  --about-card-height: auto;
+  --about-card-min-height: 18rem;
+  --about-card-gap: clamp(1.5rem, 3vw, 2.5rem);
+  --about-card-offset: 0.75rem;
+  --about-radius-lg: 1.5rem;
+  --about-radius-sm: 0.75rem;
+  --about-text-main: #fff;
+  --about-text-muted: rgb(255 255 255 / 0.7);
+  
+  position: relative;
+  width: 100%;
+  padding-bottom: 5vh;
+  pointer-events: auto;
+}
+
+/* Header styling - moved closer to content */
+.about-header {
+  min-height: auto;
+  display: grid;
+  place-items: center;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+}
+
+/* Cards container */
+#about-cards {
+  max-width: 56rem;
+  margin-inline: auto;
+  padding: 0 1rem calc(5 * var(--about-card-gap));
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--about-card-gap);
+}
+
+/* Individual card */
+.about-card {
+  position: sticky;
+  top: 12vh;
+  min-height: var(--about-card-min-height);
+  padding-top: calc(var(--index) * var(--about-card-offset));
+  perspective: 62.5rem;
+}
+
+/* Card content - Dark blur-transparent theme */
+.about-card__content {
+  position: relative;
+  isolation: isolate;
+  min-height: var(--about-card-min-height);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  background: rgba(10, 10, 15, 0.75);
+  color: var(--about-text-main);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: var(--about-radius-lg);
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+  animation: about-scale-card linear forwards;
+  animation-timeline: view();
+  animation-range: exit-crossing 0% exit-crossing 100%;
+  overflow: clip;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.about-card__content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 0.03) 0%,
+    rgb(255 255 255 / 0.01) 50%,
+    rgb(0 0 0 / 0.05) 100%
+  );
+  border-radius: inherit;
+}
+
+/* Card colors - Subtle dark theme, no vivid colors */
+.about-card:nth-child(1) {
+  --index: 1;
+  --shadow: rgb(0 0 0 / 0.5);
+  --accent: rgb(180, 180, 190);
+}
+
+.about-card:nth-child(2) {
+  --index: 2;
+  --shadow: rgb(0 0 0 / 0.5);
+  --accent: rgb(170, 170, 180);
+}
+
+.about-card:nth-child(3) {
+  --index: 3;
+  --shadow: rgb(0 0 0 / 0.5);
+  --accent: rgb(160, 160, 170);
+}
+
+.about-card:nth-child(4) {
+  --index: 4;
+  --shadow: rgb(0 0 0 / 0.5);
+  --accent: rgb(150, 150, 160);
+}
+
+.about-card:nth-child(5) {
+  --index: 5;
+  --shadow: rgb(0 0 0 / 0.5);
+  --accent: rgb(140, 140, 150);
+}
+
+/* Number styling */
+.about-number {
+  position: absolute;
+  inset-block-start: -0.5rem;
+  inset-inline-end: 1rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(3.5rem, 8vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  opacity: 0.08;
+  color: #fff;
+  user-select: none;
+}
+
+/* Title styling */
+.about-card-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--about-text-main);
+}
+
+/* Text content */
+.about-card-text {
+  max-width: 45rem;
+}
+
+.about-card-text p {
+  margin: 0 0 0.75rem;
+  font-size: clamp(0.875rem, 1.2vw, 1rem);
+  line-height: 1.6;
+  color: var(--about-text-muted);
+}
+
+.about-card-text p:last-child {
+  margin-bottom: 0;
+}
+
+.about-card-text strong {
+  color: rgb(220, 220, 230);
+  font-weight: 500;
+}
+
+/* Education section styling */
+.about-education,
+.about-interests {
+  margin-bottom: 1rem;
+}
+
+.about-education h4,
+.about-interests h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: rgb(200, 200, 210);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.about-education ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.about-education li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  color: var(--about-text-muted);
+}
+
+.about-education li strong {
+  color: var(--about-text-main);
+  font-weight: 500;
+}
+
+.about-education li span {
+  opacity: 0.8;
+}
+
+.about-education li .highlight {
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.8em;
+  font-weight: 500;
+  opacity: 1;
+  border: 1px solid rgb(255 255 255 / 0.1);
+}
+
+/* Interest tags */
+.interest-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.interest-tags span {
+  background: rgb(255 255 255 / 0.05);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  padding: 0.3rem 0.6rem;
+  border-radius: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--about-text-muted);
+  transition: all 0.3s ease;
+}
+
+.interest-tags span:hover {
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Animation keyframes */
+@keyframes about-scale-card {
+  to {
+    transform: scale(0.9) translateY(-6vh) rotateX(-12deg);
+    filter: brightness(0.5);
+    border-radius: var(--about-radius-sm);
+    box-shadow: 0 2rem 3rem -1rem var(--shadow);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .about-me-section {
+    --about-card-min-height: 16rem;
+  }
+
+  .about-header {
+    padding-top: 2rem;
+    padding-bottom: 0.5rem;
+  }
+
+  #about-cards {
+    max-width: 100%;
+    padding: 0 0.75rem calc(5 * var(--about-card-gap));
+  }
+
+  .about-card__content {
+    padding: 1.25rem;
+  }
+
+  .about-number {
+    font-size: clamp(3rem, 12vw, 4rem);
+    inset-block-start: -0.25rem;
+    inset-inline-end: 0.75rem;
+  }
+
+  .about-card-text p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .about-education li {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-me-section {
+    --about-card-min-height: 14rem;
+  }
+
+  .about-card-title {
+    font-size: 1.1rem;
+  }
+
+  .about-card-text p {
+    font-size: 0.85rem;
+  }
+
+  .interest-tags span {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Light mode adjustments */
+:root:not(.dark) .about-me-section {
+  --about-text-main: #1a1a2e;
+  --about-text-muted: rgb(26 26 46 / 0.75);
+}
+
+:root:not(.dark) .about-card__content {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgb(0 0 0 / 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+:root:not(.dark) .about-card:nth-child(1),
+:root:not(.dark) .about-card:nth-child(2),
+:root:not(.dark) .about-card:nth-child(3),
+:root:not(.dark) .about-card:nth-child(4),
+:root:not(.dark) .about-card:nth-child(5) {
+  --shadow: rgb(0 0 0 / 0.15);
+  --accent: rgb(60, 60, 70);
+}
+
+:root:not(.dark) .about-number {
+  opacity: 0.06;
+  color: #000;
+}
+
+:root:not(.dark) .about-card-text strong {
+  color: rgb(40, 40, 50);
+}
+
+:root:not(.dark) .about-education h4,
+:root:not(.dark) .about-interests h4 {
+  color: rgb(50, 50, 60);
+}
+
+:root:not(.dark) .about-education li .highlight {
+  background: rgb(0 0 0 / 0.08);
+  color: #1a1a2e;
+  border-color: rgb(0 0 0 / 0.1);
+}
+
+:root:not(.dark) .interest-tags span {
+  background: rgb(0 0 0 / 0.04);
+  border-color: rgb(0 0 0 / 0.08);
+  color: var(--about-text-muted);
+}
+
+:root:not(.dark) .interest-tags span:hover {
+  background: rgb(0 0 0 / 0.08);
+  color: #1a1a2e;
+}
